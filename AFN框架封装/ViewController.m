@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-
+#import "HttpRequest.h"
+#import "LoadingView.h"
 @interface ViewController ()
 
 @end
@@ -16,12 +17,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    HttpRequest *requreset = [[HttpRequest alloc] init];
+    NSDictionary *dict = [NSDictionary dictionary];
+    [[LoadingView shareLoadingView] starAnimationInView:self.view];
+    
+    [requreset PostWithUrlString:@"www.baidu.com" parms:dict finished:^(NSData *requestData, NSDictionary *requestDict, NSError *error) {
+        
+        NSLog(@"%@",requestDict);
+        
+    } isCache:YES];
+    
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 @end
